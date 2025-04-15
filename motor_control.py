@@ -8,7 +8,7 @@ Assignment: NOMAD
 from time import sleep
 
 import gpiozero
-from gpiozero import Device, PhaseEnableMotor
+from gpiozero import Device, PhaseEnableMotor, Servo
 from gpiozero.pins.mock import MockFactory
 import yaml
 
@@ -50,4 +50,16 @@ if __name__ == "__main__":
     if GPIO_EXISTS:
         Device.pin_factory = MockFactory()
 
-    motor_data = config_data["motor"]
+    motor_data = config_data["motors"]
+
+    servo_data = config_data["servos"]
+
+    lid_servo = Servo(servo_data["lid"]["pwm"])
+
+    while True:
+        lid_servo.min()
+        sleep(1)
+        lid_servo.mid()
+        sleep(1)
+        lid_servo.max()
+        sleep(1)
