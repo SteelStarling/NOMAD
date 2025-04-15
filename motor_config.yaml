@@ -1,0 +1,19 @@
+motors:
+  debris:
+    dir:  GPIO23
+    step: GPIO24
+    encoder_1: GPIO25
+    encoder_0: GPIO8
+    encoder_2: GPIO7
+  reel:
+    step: GPIO17
+    dir:  GPIO27
+    encoder_1: GPIO22
+    encoder_0: GPIO10
+    encoder_2: GPIO9
+  tensioning:
+    step: GPIO11
+    dir:  GPIO0
+    encoder_1: GPIO5
+    encoder_0: GPIO6
+    encoder_2: GPIO13
