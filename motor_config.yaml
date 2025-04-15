@@ -17,3 +17,6 @@ motors:
     encoder_1: GPIO5
     encoder_0: GPIO6
     encoder_2: GPIO13
+servos:
+  lid:
+    pwm: GPIO21

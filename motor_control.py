@@ -8,9 +8,13 @@ Assignment: NOMAD
 from time import sleep
 
 import gpiozero
+from gpiozero import Device, PhaseEnableMotor
+from gpiozero.pins.mock import MockFactory
 import yaml
 
 MOTOR_CONFIG = "motor_config.yaml"
+
+GPIO_EXISTS = False
 
 
 
@@ -26,15 +30,8 @@ def parse_config(config_file: str = MOTOR_CONFIG) -> object | None:
     return None
 
 
-def spin_motor(motor_pin: int, freq: int, steps: int, dir: bool = True) -> None:
-    """Spins the given motor at the given Hz rate"""
-    sleep_time = 1 / freq
-
-
-
-    for _ in range(steps):
-        
-        sleep(sleep_time)
+def spin_motor(motor: PhaseEnableMotor, speed: float, dir: bool = True) -> None:
+    """Spins the given motor at the given speed"""
     
 
 
@@ -49,6 +46,8 @@ def read_encoder(enc_p1: int, enc_p2: int, enc_p3: int) -> float:
 if __name__ == "__main__":
     config_data = parse_config()
 
-    print(config_data)
+    # When testing on devices without GPIO, create fake pins to test with
+    if GPIO_EXISTS:
+        Device.pin_factory = MockFactory()
 
-    print("A")
+    motor_data = config_data["motor"]
