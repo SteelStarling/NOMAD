@@ -7,15 +7,13 @@ Assignment: NOMAD
 
 from time import sleep
 
-import gpiozero
-from gpiozero import Device, PhaseEnableMotor, Servo
+from gpiozero import Device, PhaseEnableMotor, Servo, RotaryEncoder, Button
 from gpiozero.pins.mock import MockFactory
 import yaml
 
 MOTOR_CONFIG = "motor_config.yaml"
 
 GPIO_EXISTS = False
-
 
 
 def parse_config(config_file: str = MOTOR_CONFIG) -> object | None:
@@ -29,18 +27,23 @@ def parse_config(config_file: str = MOTOR_CONFIG) -> object | None:
 
     return None
 
-
 def spin_motor(motor: PhaseEnableMotor, speed: float, dir: bool = True) -> None:
     """Spins the given motor at the given speed"""
-    
 
 
 def spin_servo(servo_pin: int, angle: float) -> None:
     """Spins the given servo to the specified angle"""
 
-
-def read_encoder(enc_p1: int, enc_p2: int, enc_p3: int) -> float:
+def read_encoder(encoder: RotaryEncoder, z_pulse: Button) -> float:
     """Calculates the position of a given encoder"""
+
+    # So, what *is* a Z-Pulse Encoder?
+    #
+    # It's just a normal encoder, but with Z-Pulse\
+    # Z turns to high when the initial ("zero position") value is encountered
+    # Very good for homing
+
+
 
 
 if __name__ == "__main__":
