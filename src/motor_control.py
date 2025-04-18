@@ -50,7 +50,6 @@ def servo_open(servo: Servo) -> None:
     """Opens the given servo smoothly"""
     # initialize (this isn't needed, but helps specify where it starts)
     servo.value = 1
-    sleep(2)
 
     # Move over a half cos_wave
     servo.source = cos_values()
@@ -58,14 +57,13 @@ def servo_open(servo: Servo) -> None:
 
     # stop moving, ensure in correct location
     servo.source = None
-    servo.value = 1
+    servo.value = -1
 
 
 def servo_close(servo: Servo) -> None:
     """Closes the given servo smoothly"""
     # initialize (this isn't needed, but helps specify where it starts)
     servo.value = -1
-    sleep(2)
 
     # Move over a half cos_wave
     servo.source = inverted(cos_values(), input_min = -1, input_max = 1)
@@ -127,7 +125,7 @@ if __name__ == "__main__":
         sleep(1)
         lid_servo.max()
         sleep(1)
-    
+
     lid_servo.value = 1
     sleep(2)
 
