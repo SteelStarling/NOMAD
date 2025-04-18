@@ -102,6 +102,7 @@ if __name__ == "__main__":
         frame_width=0.003
     )
 
+    print("Manual Lid Control")
     for _ in range(1):
         lid_servo.min()
         sleep(1)
@@ -110,5 +111,8 @@ if __name__ == "__main__":
         lid_servo.max()
         sleep(1)
 
+    print("Opening Lid")
     servo_open(lid_servo)
+    sleep(10)
+    print("Closing Lid")
     servo_close(lid_servo)
