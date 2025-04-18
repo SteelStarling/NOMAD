@@ -48,14 +48,17 @@ def spin_motor(motor: PhaseEnableMotor, speed: float, dir: bool = True) -> None:
 
 def servo_open(servo: Servo) -> None:
     """Opens the given servo smoothly"""
+    print(servo.source)
     servo.source = sin_values()
     sleep(1.8)
+    servo.source = None
     servo.value = 1
 
 def servo_close(servo: Servo) -> None:
     """Closes the given servo smoothly"""
     servo.source = cos_values()
     sleep(1.8)
+    servo.source = None
     servo.value = -1
 
 
@@ -103,7 +106,7 @@ if __name__ == "__main__":
     )
 
     print("Manual Lid Control")
-    for _ in range(1):
+    for _ in range(0):
         lid_servo.min()
         sleep(1)
         lid_servo.mid()
@@ -114,5 +117,5 @@ if __name__ == "__main__":
     print("Opening Lid")
     servo_open(lid_servo)
     sleep(10)
-    print("Closing Lid")
-    servo_close(lid_servo)
+    #print("Closing Lid")
+    #servo_close(lid_servo)
