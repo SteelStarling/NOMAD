@@ -83,9 +83,15 @@ if __name__ == "__main__":
     debris_encoder = 
     reel_motor = create_motor(motor_data["reel"])
     tensioning_motor = create_motor(motor_data["tensioning"])
-    lid_servo = Servo(servo_data["lid"]["pwm"])
+    lid_servo = Servo(
+        servo_data["lid"]["pwm"],
+        initial_value=1,
+        min_pulse_width=0.0004,
+        max_pulse_width=0.00205,
+        frame_width=0.003
+    )
 
-    while True:
+    for _ in range(10):
         lid_servo.min()
         sleep(1)
         lid_servo.mid()
