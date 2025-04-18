@@ -80,7 +80,7 @@ if __name__ == "__main__":
     servo_data = config_data["servos"]
 
     debris_motor = create_motor(motor_data["debris"])
-    debris_encoder = 
+    # debris_encoder = 
     reel_motor = create_motor(motor_data["reel"])
     tensioning_motor = create_motor(motor_data["tensioning"])
     lid_servo = Servo(

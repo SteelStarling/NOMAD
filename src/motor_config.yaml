@@ -12,11 +12,11 @@ motors:
     encoder_b: GPIO10
     encoder_z: GPIO9
   tensioning:
-    step: GPIO11
-    dir:  GPIO0
-    encoder_a: GPIO5
-    encoder_b: GPIO6
-    encoder_z: GPIO13
+    step: GPIO5
+    dir:  GPIO6
+    encoder_a: GPIO13
+    encoder_b: GPIO19
+    encoder_z: GPIO26
 servos:
   lid:
     pwm: GPIO21
