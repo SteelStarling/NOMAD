@@ -11,9 +11,9 @@ from gpiozero import Device, PhaseEnableMotor, Servo, RotaryEncoder, Button
 from gpiozero.pins.mock import MockFactory, MockPWMPin
 import yaml
 
-MOTOR_CONFIG = "motor_config.yaml"
+from gpio_const import GPIO_EXISTS
 
-GPIO_EXISTS = False
+MOTOR_CONFIG = "motor_config.yaml"
 
 MOTOR_STEPS = 1
 ENCODER_STEPS = 4000
@@ -45,8 +45,18 @@ def spin_motor(motor: PhaseEnableMotor, speed: float, dir: bool = True) -> None:
     """Spins the given motor at the given speed"""
 
 
-def spin_servo(servo_pin: int, angle: float) -> None:
-    """Spins the given servo to the specified angle"""
+def servo_open(servo: Servo) -> None:
+    """Opens the given servo smoothly"""
+    servo.sin_values()
+    sleep(3.6)
+    servo.value = 1
+
+def servo_close(servo: Servo) -> None:
+    """Closes the given servo smoothly"""
+    servo.sin_values()
+    sleep(3.6)
+    servo.value = 1
+
 
 def create_motor(motor_data: dict) -> PhaseEnableMotor:
     """Creates a motor from the given dictionary"""
@@ -91,10 +101,14 @@ if __name__ == "__main__":
         frame_width=0.003
     )
 
-    for _ in range(10):
+    for _ in range(1):
         lid_servo.min()
         sleep(1)
         lid_servo.mid()
         sleep(1)
         lid_servo.max()
         sleep(1)
+    
+    servo_open(lid_servo)
+    servo_close(lid_servo)
+
