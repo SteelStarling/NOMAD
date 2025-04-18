@@ -8,7 +8,7 @@ Assignment: NOMAD
 from time import sleep
 
 from gpiozero import Device, PhaseEnableMotor, Servo, RotaryEncoder, Button
-from gpiozero.tools import sin_values, cos_values
+from gpiozero.tools import cos_values, inverted
 from gpiozero.pins.mock import MockFactory, MockPWMPin
 import yaml
 
@@ -49,14 +49,14 @@ def spin_motor(motor: PhaseEnableMotor, speed: float, dir: bool = True) -> None:
 def servo_open(servo: Servo) -> None:
     """Opens the given servo smoothly"""
     print(servo.source)
-    servo.source = sin_values()
+    servo.source = cos_values()
     sleep(1.8)
     servo.source = None
     servo.value = 1
 
 def servo_close(servo: Servo) -> None:
     """Closes the given servo smoothly"""
-    servo.source = cos_values()
+    servo.source = inverted(cos_values())
     sleep(1.8)
     servo.source = None
     servo.value = -1
@@ -116,6 +116,8 @@ if __name__ == "__main__":
 
     print("Opening Lid")
     servo_open(lid_servo)
-    sleep(10)
-    #print("Closing Lid")
-    #servo_close(lid_servo)
+    
+    sleep(5)
+
+    print("Closing Lid")
+    servo_close(lid_servo)
