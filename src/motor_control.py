@@ -71,7 +71,7 @@ def servo_close(servo: Servo) -> None:
 
     # stop moving, ensure in correct location
     servo.source = None
-    servo.value = -1
+    servo.value = 1
 
 
 def create_motor(motor_data: dict) -> PhaseEnableMotor:
