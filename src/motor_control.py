@@ -7,12 +7,13 @@ Assignment: NOMAD
 
 from time import sleep
 
-from gpiozero import Device, PhaseEnableMotor, Servo, RotaryEncoder, Button, PWMOutputDevice
+from gpiozero import Device, Servo, RotaryEncoder, Button, PWMOutputDevice, DigitalOutputDevice
 from gpiozero.tools import cos_values, inverted
 from gpiozero.pins.mock import MockFactory, MockPWMPin
 import yaml
 
 from gpio_const import GPIO_EXISTS
+from pulsed_stepper import PulsedStepperMotor
 
 MOTOR_CONFIG = "src/motor_config.yaml"
 
@@ -40,10 +41,6 @@ def create_reset_encoder(encoder: RotaryEncoder) -> callable:
         encoder.value = 0
 
     return reset_encoder
-
-
-def spin_motor(motor: PhaseEnableMotor, speed: float, dir: bool = True) -> None:
-    """Spins the given motor at the given speed"""
 
 
 def servo_open(servo: Servo) -> None:
@@ -74,9 +71,10 @@ def servo_close(servo: Servo) -> None:
     servo.value = 1
 
 
-def create_motor(motor_data: dict) -> PhaseEnableMotor:
+def create_motor(motor_data: dict) -> PulsedStepperMotor:
     """Creates a motor from the given dictionary"""
-    return PhaseEnableMotor(motor_data["dir"], motor_data["step"])
+    return PulsedStepperMotor(motor_data["step"], motor_data["dir"], motor_data["enable"])
+
 
 def create_encoder(motor_data: dict) -> RotaryEncoder:
     """Creates a z-pulse encoder
@@ -108,13 +106,11 @@ if __name__ == "__main__":
     debris_motor = create_motor(motor_data["debris"])
     # debris_encoder = 
     reel_motor = create_motor(motor_data["reel"])
-    # tensioning_motor = create_motor(motor_data["tensioning"])
+    tensioning_motor = create_motor(motor_data["tensioning"])
     # for use copied into interactive python
     #
     # from gpiozero import PhaseEnableMotor
     # m = PhaseEnableMotor(6, 5)
-
-    motor = PWMOutputDevice(5)
 
     lid_servo = Servo(
         servo_data["lid"]["pwm"],
