@@ -7,14 +7,14 @@ Assignment: NOMAD
 
 from time import sleep
 
-from gpiozero import Device, PhaseEnableMotor, Servo, RotaryEncoder, Button
+from gpiozero import Device, PhaseEnableMotor, Servo, RotaryEncoder, Button, PWMOutputDevice
 from gpiozero.tools import cos_values, inverted
 from gpiozero.pins.mock import MockFactory, MockPWMPin
 import yaml
 
 from gpio_const import GPIO_EXISTS
 
-MOTOR_CONFIG = "motor_config.yaml"
+MOTOR_CONFIG = "src/motor_config.yaml"
 
 MOTOR_STEPS = 1
 ENCODER_STEPS = 4000
@@ -101,14 +101,21 @@ if __name__ == "__main__":
     if not GPIO_EXISTS:
         Device.pin_factory = MockFactory(pin_class=MockPWMPin)
 
-    # Create sub dictionaries for easier access
+    # Create sub-dictionaries for easier access
     motor_data = config_data["motors"]
     servo_data = config_data["servos"]
 
     debris_motor = create_motor(motor_data["debris"])
     # debris_encoder = 
     reel_motor = create_motor(motor_data["reel"])
-    tensioning_motor = create_motor(motor_data["tensioning"])
+    # tensioning_motor = create_motor(motor_data["tensioning"])
+    # for use copied into interactive python
+    #
+    # from gpiozero import PhaseEnableMotor
+    # m = PhaseEnableMotor(6, 5)
+
+    motor = PWMOutputDevice(5)
+
     lid_servo = Servo(
         servo_data["lid"]["pwm"],
         initial_value=1,
@@ -116,6 +123,10 @@ if __name__ == "__main__":
         max_pulse_width=0.00205,
         frame_width=0.003
     )
+    # for use copied into interactive python
+    #
+    # from gpiozero import Servo
+    # s = Servo(21,initial_value=1,min_pulse_width=0.0004,max_pulse_width=0.00205,frame_width=0.003)
 
     print("Manual Lid Control")
     for _ in range(0):
@@ -126,6 +137,7 @@ if __name__ == "__main__":
         lid_servo.max()
         sleep(1)
 
+    # Ensure closed before test
     lid_servo.value = 1
     sleep(2)
 

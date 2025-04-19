@@ -1,22 +1,25 @@
 motors:
   debris:
-    dir:  GPIO23
-    step: GPIO24
-    encoder_a: GPIO25
-    encoder_b: GPIO8
-    encoder_z: GPIO7
+    dir:    2
+    step:   3
+    enable: 4
+    encoder_a: 17
+    encoder_b: 27
+    encoder_z: 22
   reel:
-    step: GPIO17
-    dir:  GPIO27
-    encoder_a: GPIO22
-    encoder_b: GPIO10
-    encoder_z: GPIO9
+    dir:    10
+    step:   9
+    enable: 11
+    encoder_a: 5
+    encoder_b: 6
+    encoder_z: 13
   tensioning:
-    step: GPIO5
-    dir:  GPIO6
-    encoder_a: GPIO13
-    encoder_b: GPIO19
-    encoder_z: GPIO26
+    dir:    14
+    step:   15
+    enable: 18
+    encoder_a: 23
+    encoder_b: 24
+    encoder_z: 25
 servos:
   lid:
-    pwm: GPIO21
+    pwm: 21
